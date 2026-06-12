@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Health Prediction System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">
+          <i class="fas fa-heartbeat"></i>
+          <span>HealthPredict</span>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link active">Home</a></li>
+          <li><a href="/appointment" class="nav-link">Doctors</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Medical Health Prediction</h1>
+          <p>
+            AI-powered disease prediction based on your symptoms using advanced
+            machine learning algorithms
+          </p>
+        </div>
+      </section>
+
+      <section class="prediction-section">
+        <div class="container">
+          <div class="card prediction-card">
+            <h2><i class="fas fa-stethoscope"></i> Select Your Symptoms</h2>
+            <p class="subtitle">
+              Choose all symptoms you are currently experiencing
+            </p>
+
+            <form action="/predict" method="POST" id="prediction-form">
+              <!-- Algorithm Selection -->
+              <div class="algorithm-section">
+                <h3><i class="fas fa-cogs"></i> Select ML Algorithm</h3>
+                <div class="algorithm-options">
+                  <label class="algorithm-option">
+                    <input
+                      type="radio"
+                      name="algorithm"
+                      value="decision_tree"
+                    />
+                    <span class="option-label">
+                      <i class="fas fa-tree"></i>
+                      Decision Tree
+                    </span>
+                  </label>
+                  <label class="algorithm-option">
+                    <input type="radio" name="algorithm" value="knn" />
+                    <span class="option-label">
+                      <i class="fas fa-project-diagram"></i>
+                      KNN
+                    </span>
+                  </label>
+                  <label class="algorithm-option">
+                    <input type="radio" name="algorithm" value="naive_bayes" />
+                    <span class="option-label">
+                      <i class="fas fa-chart-pie"></i>
+                      Naive Bayes
+                    </span>
+                  </label>
+                  <label class="algorithm-option">
+                    <input
+                      type="radio"
+                      name="algorithm"
+                      value="random_forest"
+                      checked
+                    />
+                    <span class="option-label">
+                      <i class="fas fa-trees"></i>
+                      Random Forest
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Search Box -->
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="symptom-search"
+                  placeholder="Search symptoms..."
+                />
+              </div>
+
+              <!-- Symptoms Grid -->
+              <div class="symptoms-container">
+                <div class="symptoms-grid" id="symptoms-grid">
+                  {% for symptom, formatted in symptoms %}
+                  <label class="symptom-checkbox">
+                    <input
+                      type="checkbox"
+                      name="symptoms"
+                      value="{{ symptom }}"
+                    />
+                    <span class="checkmark"></span>
+                    <span class="symptom-label">{{ formatted }}</span>
+                  </label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- Selected Count -->
+              <div class="selected-info">
+                <span id="selected-count">0</span> symptoms selected
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-large">
+                <i class="fas fa-search-plus"></i> Predict Disease
+              </button>
+            </form>
+          </div>
+
+          <!-- Info Cards -->
+          <div class="info-cards">
+            <div class="info-card">
+              <i class="fas fa-brain"></i>
+              <h3>AI Powered</h3>
+              <p>Uses 4 ML algorithms for accurate predictions</p>
+            </div>
+            <div class="info-card">
+              <i class="fas fa-database"></i>
+              <h3>132 Symptoms</h3>
+              <p>Comprehensive symptom database</p>
+            </div>
+            <div class="info-card">
+              <i class="fas fa-viruses"></i>
+              <h3>41 Diseases</h3>
+              <p>Wide range of disease predictions</p>
+            </div>
+            <div class="info-card">
+              <i class="fas fa-chart-line"></i>
+              <h3>95%+ Accuracy</h3>
+              <p>High precision disease detection</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2024 HealthPredict. For educational purposes only. Always
+          consult a doctor for medical advice.
+        </p>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

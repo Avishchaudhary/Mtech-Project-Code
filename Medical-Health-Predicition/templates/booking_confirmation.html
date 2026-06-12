@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmed - HealthPredict</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">
+          <i class="fas fa-heartbeat"></i>
+          <span>HealthPredict</span>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/appointment" class="nav-link">Doctors</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="confirmation-section">
+        <div class="container">
+          <div class="card confirmation-card">
+            <div class="confirmation-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Appointment Confirmed!</h1>
+            <p class="confirmation-message">
+              Your appointment has been successfully booked.
+            </p>
+
+            <div class="booking-details">
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-user-md"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Doctor</span>
+                  <span class="detail-value">{{ doctor.name }}</span>
+                  <span class="detail-sub">{{ doctor.specialty }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Patient</span>
+                  <span class="detail-value">{{ patient_name }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Date & Time</span>
+                  <span class="detail-value">{{ appointment_date }}</span>
+                  <span class="detail-sub">{{ appointment_time }}</span>
+                </div>
+              </div>
+
+              {% if disease %}
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-notes-medical"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Condition</span>
+                  <span class="detail-value">{{ disease }}</span>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="confirmation-note">
+              <i class="fas fa-info-circle"></i>
+              <p>
+                A confirmation email will be sent to your registered email
+                address. Please arrive 15 minutes before your scheduled
+                appointment time.
+              </p>
+            </div>
+
+            <div class="action-buttons">
+              <a href="/" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Go Home
+              </a>
+              <a href="/appointment" class="btn btn-primary">
+                <i class="fas fa-calendar-plus"></i> Book Another
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2024 HealthPredict. For educational purposes only. Always
+          consult a doctor for medical advice.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

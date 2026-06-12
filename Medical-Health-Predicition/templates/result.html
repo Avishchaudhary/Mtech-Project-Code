@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction Result - HealthPredict</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">
+          <i class="fas fa-heartbeat"></i>
+          <span>HealthPredict</span>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/appointment" class="nav-link">Doctors</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="result-section">
+        <div class="container">
+          {% if error %}
+          <div class="card error-card">
+            <div class="error-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Error</h2>
+            <p>{{ error }}</p>
+            <a href="/" class="btn btn-primary">
+              <i class="fas fa-arrow-left"></i> Try Again
+            </a>
+          </div>
+          {% else %}
+          <div class="result-container">
+            <!-- Main Result Card -->
+            <div class="card result-card">
+              <div class="result-header">
+                <div class="result-icon">
+                  <i class="fas fa-file-medical-alt"></i>
+                </div>
+                <h1>Prediction Result</h1>
+                <p class="algorithm-used">
+                  Predicted using <strong>{{ algorithm }}</strong> algorithm
+                </p>
+              </div>
+
+              <div class="disease-result">
+                <h2 class="disease-name">{{ disease }}</h2>
+                <p class="disease-description">{{ description }}</p>
+              </div>
+
+              {% if probabilities %}
+              <div class="probability-section">
+                <h3><i class="fas fa-chart-bar"></i> Prediction Confidence</h3>
+                <div class="probability-bars">
+                  {% for disease_name, prob in probabilities.items() %}
+                  <div class="prob-item">
+                    <div class="prob-label">
+                      <span>{{ disease_name }}</span>
+                      <span>{{ prob }}%</span>
+                    </div>
+                    <div class="prob-bar">
+                      <div class="prob-fill" style="width: {{ prob }}%"></div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Symptoms Card -->
+            <div class="card symptoms-card">
+              <h3><i class="fas fa-list-ul"></i> Selected Symptoms</h3>
+              <div class="symptoms-tags">
+                {% for symptom in selected_symptoms %}
+                <span class="symptom-tag">{{ symptom }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Precautions Card -->
+            <div class="card precautions-card">
+              <h3><i class="fas fa-shield-alt"></i> Recommended Precautions</h3>
+              <ul class="precautions-list">
+                {% for precaution in precautions %}
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>{{ precaution }}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <a href="/" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> New Prediction
+              </a>
+              <a
+                href="/appointment?disease={{ disease }}"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-calendar-check"></i> Book Appointment
+              </a>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+              <i class="fas fa-info-circle"></i>
+              <p>
+                <strong>Disclaimer:</strong> This prediction is for
+                informational purposes only and should not be considered as
+                medical advice. Please consult a qualified healthcare
+                professional for proper diagnosis and treatment.
+              </p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2024 HealthPredict. For educational purposes only. Always
+          consult a doctor for medical advice.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
